@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
@@ -36,6 +37,9 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upgrade NPM for OIDC support
+        run: npm install -g npm@latest
 
       - name: Publish to NPM
         run: npm publish --provenance
