@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           registry-url: 'https://registry.npmjs.org'
 
       - name: Run GoReleaser
@@ -37,9 +37,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upgrade NPM for OIDC support
-        run: npm install -g npm@latest
 
       - name: Publish to NPM
         run: npm publish --provenance
